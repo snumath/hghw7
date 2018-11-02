@@ -1,0 +1,284 @@
+
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage[inline]{enumitem}
+\usepackage{amsmath,amssymb,latexsym,amsfonts, amsthm}
+\usepackage[fontsize=13pt]{scrextend} % Font size
+% \usepackage{verbatim} % coding
+\usepackage{mathtools}
+
+
+\usepackage[tracking]{microtype} % Font
+\usepackage[sc,osf]{mathpazo} % Font
+\usepackage{graphicx}
+\usepackage{lipsum}
+
+% \usepackage[all]{xy} % diagram
+
+% \usepackage{tikz} % diagram
+% \usepackage{tikz-cd} % diagram
+
+% \usetikzlibrary{arrows}
+% \usetikzlibrary{matrix}
+
+
+\makeatletter
+\renewenvironment{cases}[1][l]{\matrix@check\cases\env@cases{#1}}{\endarray\right.}
+\def\env@cases#1{%
+  \let\@ifnextchar\new@ifnextchar
+  \left\lbrace\def\arraystretch{1.2}%
+  \array{@{}#1@{\quad}l@{}}}
+\makeatother
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{2016-11988} % Top left header
+\chead{3341.202 Introduction to Mathematical Analysis} % Top center header
+\rhead{Lee Young Jae} % Top right header
+\lfoot{\lastxmark} % Bottom left footer
+\cfoot{} % Bottom center footer
+\rfoot{Page\ \thepage\ of\ \pageref{LastPage}} % Bottom right footer
+\renewcommand\headrulewidth{0.4pt} % Size of the header rule
+\renewcommand\footrulewidth{0.4pt} % Size of the footer rule
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+% Header and footer for when a page split occurs within a problem environment
+\newcommand{\enterProblemHeader}[1]{
+\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+}
+
+% Header and footer for when a page split occurs between problem environments
+\newcommand{\exitProblemHeader}[1]{
+\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak
+\nobreak\extramarks{#1}{}\nobreak
+}
+
+\newtheorem{lemma}{Lemma}
+
+
+\setcounter{secnumdepth}{0}
+
+
+\begin{document}
+\begin{titlepage}
+\centering
+{\scshape\LARGE Seoul National University \par}
+\vspace{1.5cm}
+{\huge\bfseries Introduction to\\Mathematical Analysis 2\par}
+\vspace{1cm}
+{\scshape\Large Assignment \# 7\par}
+
+\vspace{1cm}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=80mm]{rubberduck.jpg}
+\end{figure}
+
+\vspace{1cm}
+
+\arrayrulewidth=1.2pt
+\begin{tabular}{p{2.5cm}p{2cm}}
+\centering
+& \\
+\cline{2-2}
+\vspace{-.73cm}
+My Score? & \\
+\end{tabular}
+
+
+
+\vfill
+\text{2016-11988}
+\vspace{.7cm}\par
+\textsc{\large Lee Young Jae}
+\vspace{.7cm}\par
+{\Large \today\par}
+\end{titlepage}
+
+\setlength{\parindent}{0cm}
+
+
+\begin{enumerate}[font = \Large\bfseries\itshape\space, leftmargin = 3mm, labelsep = 3mm]
+\item
+Let $\alpha: \mathbb{R} \rightarrow \mathbb{R}$ be an increasing function (i.e. $\alpha(x) \leq \alpha(y)$ if $x \leq y$).
+For $a,b \in \mathbb{R}, a \leq b$, set
+$$
+\begin{aligned}
+\mu([a,b)) := \alpha(b-) - \alpha(a-),\\
+\mu([a,b]) := \alpha(b+) - \alpha(a-),\\
+\mu((a,b]) := \alpha(b+) - \alpha(a+),\\
+\mu([a,b)) := \alpha(b-) - \alpha(a+).\\
+\end{aligned}
+$$
+Extend $\mu$ to elementary sets as in the lecture (see (7.11) there).
+Show that $\mu$ is regular.
+\begin{proof}
+\begin{lemma}
+If $\alpha: \mathbb{R} \rightarrow \mathbb{R}$ is an increasing function, then $\lim_{x\rightarrow a+} \alpha(x), \lim_{x\rightarrow a-} \alpha(x)$ exist for each $a \in \mathbb{R}$.
+\end{lemma}
+
+\begin{proof}
+Without loss of generality, it suffices to show that $\lim_{x\rightarrow a+} \alpha(x)$ exists.
+Let $M = \alpha(a)$ and $(a_n)$ be arbitrary increasing sequence such that $a_n < a$ for each $n$.
+Then, $\alpha(a_n) \leq M$ and $\alpha(a_n)$ is an increasing sequence.
+By completeness of real numbers, $\lim_{n\rightarrow\infty}\alpha(a_n)$ exists, hence $\lim_{x\rightarrow a+} \alpha(x)$ exists.
+\end{proof}
+
+First, prove the case for the dimension of $\mathcal{E}$ is $1$ (i.e., union of intervals in the real line).
+For any arbitrary set $A$, let $A = \bigcup_{i=1}^n I_i \in \mathcal{E}$, and $I_i$'s are interval.
+Without loss of generality, we can assume that each $I_i$'s are disjoint.
+Now, fix $\epsilon > 0$ and find an open set $G$ such that $A \subset G$ and $\mu(G \backslash A) < \epsilon$.
+For convenience, let $b_0 = -\infty$ and $a_{n+1} = \infty$.
+\begin{enumerate}[label = Case \arabic*:]
+\item $I_i = [a_i, b_i)$\\
+Let $b_i = b_i'$.
+By definition of limitness, there exists $a_i'$ in $(b_{i-1}, a_i)$ such that $\alpha(a_i') > \lim_{x\rightarrow a_i -}\alpha(x) - \frac{\epsilon}{2n}$.
+Now, let $G_i = (a_i', b_i')$.
+
+\item $I_i = [a_i, b_i]$\\
+By the definition of limitness, there there exists $b_i'$ in $(b_i, a_{i+1})$ such that $\alpha(b_i') < \lim_{x\rightarrow b_i'-}\alpha(x) + \frac{\epsilon}{2n}$.
+Similarly, there exists $a_i'$ in $(b_{i-1}, a_i)$ such that $\alpha(a_i') > \lim_{x\rightarrow a_i -}\alpha(x) - \frac{\epsilon}{2n}$.
+Now, let $G_i = (a_i', b_i')$.
+
+\item $I_i = (a_i, b_i]$\\
+By the definition of limitness, there there exists $b_i'$ in $(b_i, a_{i+1})$ such that $\alpha(b_i') < \lim_{x\rightarrow b_i'-}\alpha(x) + \frac{\epsilon}{2n}$.
+Let $a_i = a_i'$
+Now, let $G_i = (a_i', b_i')$.
+
+\item $I_i = (a_i, b_i)$\\
+Let $a_i = a_i'$ and $b_i = b_i'$.
+Now, let $G_i = (a_i', b_i')$.
+\end{enumerate}
+From each case, $I_i \subset G_i$, $G_i$'s are open, and $\mu(G_i \backslash I_i) < \frac{\epsilon}{n}$.
+Therefore, $G = \bigcup_{i=1}^n G_i$ satisfies $A \subset G$, $G$ is open, and $\mu(G \backslash A) < \epsilon$.
+
+For the multi-dimensional $\mathcal{E}$, for any arbitrary set $A$, let $A = \bigcup_{i=1}^n I_i \in \mathcal{E}$, and $I_i$'s are boxes.
+Similar to $1$-dimensional case, we only needs to define open sets $G_i$ such that $I_i \subset G_i$ and $\mu(G_i\backslash I_i) < \frac{\epsilon}{n}$, and it is true by the definition of limit with identical process of $1$-dimensional case.
+\end{proof}
+
+\item
+On the measure space $(X, \mathcal{M}, \mu)$ consider a measurable set $E \in \mathcal{M}$ and two measurable simple functions
+$$
+s = \sum_{i=1}^n \alpha_i \mathbb{1}_{E_i}, \quad
+\tilde{s} = \sum_{j=1}^m \beta_j \mathbb{1}_{B_j}, \quad
+\text{with} \quad \alpha_, \beta_j > 0.
+$$
+Show that if $(0 \leq) s \leq \tilde{s}$, then $I_E(s) \leq I_E(\tilde{s})$.
+
+\begin{proof}
+\begin{lemma}
+If $s = \sum_{i=1}^n \alpha_i \mathbb{1}_{E_i}$, then there exists $(\beta_j), B_j$ such that $s = \sum_{j=1}^m \beta_j \mathbb{1}_{B_j}$ and $B_j$'s are disjoint.
+\end{lemma}
+\begin{proof}
+Let $\beta_{j_1j_2\cdots j_n} = \sum_{j_i=1} \alpha_i$ and $B_{j_1 j_2 \cdots j_n} = \left(\bigcap_{j_i = 1} E_i\right) \cap \left(\bigcap_{j_i = 0} E_i^c\right)$ for each $j_i = 0$ or $1$.
+Then, $B_j$'s are disjoint and $\sum_{i=1}^n \alpha_i \mathbb{1}_{E_i} =  \sum_{j=1}^m \beta_j \mathbb{1}_{B_j}$.
+\end{proof}
+
+By lemma, without loss of generality, let assume $E_i$'s be disjoint and $B_j$ be disjoint.
+Let $A_{ij} = E_i \cap B_j$ so that $A_{ij}$ be disjoint, $\bigcup_{j=1}^m A_{ij} = E_i$, and $\bigcup_{i=1}^n A_{ij} = B_j$.
+Then, there exists $\gamma_{ij}$ and $\delta_{ij}$ such that $s = \sum_{i=1}^n\sum_{j=1}^m \gamma_{ij} \mathbb{1}_{A_{ij}}, \tilde{s} = \sum_{i=1}^n\sum_{j=1}^m \delta_{ij} \mathbb{1}_{A_{ij}}$.
+Since $(0 \leq) s \leq \tilde{s}$ and each $A_{ij}$ are disjoint, $\gamma_{ij} \leq \delta_{ij}$ for each $i, j$.
+Therefore, $I_E(s) = I_E\left(\sum_{i=1}^n \sum_{j=1}^m \gamma_{ij} \mathbb{1}_{A_{ij}}\right) \leq I_E(\tilde{s}) = I_E\left(\sum_{i=1}^n \sum_{j=1}^m \delta_{ij} \mathbb{1}_{A_{ij}}\right)$.
+\end{proof}
+
+\item
+Show Remark 7.3.3 of the lecture.
+\begin{proof}
+\begin{enumerate}[label=(\roman*)]
+\item
+$f$ measurable and bounded on $E$, $\mu(E) < \infty \Rightarrow f \in \mathcal{L}(E,\mu)$.\\
+Let $|f| \leq M$. Then for every $s \leq f^+ \leq M$, $0 \leq I_E(s) \leq M_\mu(E) \Rightarrow \int_E f^+d\mu < \infty$.
+Similarly, $\int_E f^- d\mu < \infty$.
+Therefore, $f \in \mathcal{L}(E, \mu)$.
+
+\item
+$\alpha \leq f(x) \leq \beta, \forall x \in E$ and $\mu(E) < \infty \Rightarrow \alpha \mu(E) \leq \int_E fd\mu \leq \beta \mu(E)$.\\
+Similar for (i).
+$f^+, f^- \leq \beta \Rightarrow \int_E f d\mu \leq \beta \mu(E)$.
+If $\alpha \leq f$, then a simple function $s = \alpha \mathbb{1}_{E} \leq f$, hence $I_E(s) = \alpha \mu(E) \leq \int_E fd\mu$.
+
+\item
+$f, g \in \mathcal{L}(E,\mu)$ and $f(x) \leq g(x), \forall x \in E \Rightarrow \int_E fd\mu \leq \int_E gd\mu$.\\
+$s \leq f \Rightarrow s \leq g$.
+Therefore, $\{ s : s \leq f, s: \text{simple}\} \subset \{ s' : s' \leq g, s': \text{simple} \}$ and $\sup_{s\leq f} I_E(s) \leq \sup_{s' \leq g} I_E(s')$
+
+\item
+$f \in \mathcal{L}(E,\mu) \Rightarrow \alpha \cdot f \in \mathcal{L}(E,\mu) \forall \alpha \in \mathbb{R}$ and $\int_E \alpha fd\mu = \alpha \int_E fd\mu$.\\
+If $\alpha = 0$, then the statement is obviously true.
+Without loss of generality, we can assume that $\alpha > 0$.
+Moreover, if $f = f^+ - f^-$, then $\int_E \alpha f d\mu = \int_E \alpha f^+ d\mu - \int_E \alpha f^- d\mu$ by linearity and $\alpha_E fd\mu = \alpha \int_E f^+ d\mu - \alpha \int_E f^- d\mu$ by linearity.
+Thus, we only have to show that the case for non-negative function $f$.
+Without loss of generality, assume that $f \geq 0$ for all $x \in E$.
+
+First, show that $\int_E \alpha f d\mu \leq \alpha \int_E fd\mu$.\\
+Let $s \leq \alpha f$ and $\epsilon = \int_E \alpha f d\mu - I_E(s)$.
+Then, there exists $s' \leq \alpha f$ such that $\alpha \epsilon > \int_E \alpha f d\mu - I_E(s') = \int_E \alpha f d\mu - \alpha I_E (s'/\alpha)$.
+Since $s'/\alpha \leq f$, we now get for any $\epsilon > 0$ there exists $\tilde{s} = s'/\alpha$ such that $\epsilon > (\int_E\alpha fd\mu)/\alpha - I_E(\tilde{s})$.
+Letting $\epsilon \rightarrow 0$ we now get $\int_E fd\mu \geq (\int_E \alpha fd\mu)/\alpha \Rightarrow \int_E \alpha fd\mu \leq \alpha \int_E fd\mu$
+
+Second, show that $\int_E\alpha fd\mu \geq \alpha \int_E fd\mu$.\\
+Let $s \leq f$ and $\epsilon = \int_E f d\mu - I_E(s)$.
+Then, there exists $s' \leq f$ such that $\epsilon/\alpha > \int_E f d\mu - I_E(s') = \int_E f d\mu - I_E(\alpha s)/\alpha$.
+Since $\alpha s' \leq \alpha f$, we not get for any $\epsilon > 0$ there exists $\tilde{s} = \alpha s'$ such that $\epsilon > \alpha(\int_E f d\mu) - I_E(\tilde{s})$.
+Letting $\epsilon \rightarrow 0$ we now get $\int_E \alpha f d\mu \geq \alpha \int_E fd\mu$.
+
+From First and Second, $\int_E \alpha f d\mu = \alpha \int_E fd\mu$.
+
+\item
+$\mu(E) = 0$ and $f$ measurable $\Rightarrow \int_E fd\mu = 0$\\
+Similar to (iv), we only have to concern non-negative $f$.
+Let $s = \sum_{i=1}^n \alpha_i \mathbb{1}_{E_i} \leq f$ be a simple function. Then, $0 \leq I_E(s) = \sum_{i=1}^n \alpha \mu(E \cap E_i) \leq \sum_{i=1}^n \alpha \mu(E) = 0$.
+Therefore, $\int_E fd\mu = \sum_{s \leq f} I_E(s) = 0$.
+
+\item
+$f \in \mathcal{L}(E,\mu), A \subset E, A \in \mathcal{M} \Rightarrow f \in \mathcal{L}(A, \mu)$.\\
+Similar to (iv), we only have to concern non-negative $f$.
+Let $s = \sum_{i=1}^n \alpha_i \mathbb{1}_{E_i} \leq f$ on $A$.
+Then, $s' = \sum_{i=1}^n \alpha_i \mathbb{1}_{E_i \cap A}$ is also simple function such that $s \leq f$ on $A$.
+Moreover, $s \leq f$ on $E$ since $s = 0$ outside $A$.
+Therefore, $I_A(s) = I_A(s') \leq I_E(s') \leq \int_E fd\mu \Rightarrow \int_A fd\mu < \infty$. 
+\end{enumerate}
+\end{proof}
+
+
+\item
+Let $f$ be measurable.
+\begin{enumerate}[label=(\roman*)]
+\item
+Suppose $f \geq 0$ $\mu$-a.e. on $X$ and $\int_X fd\mu = 0$.
+Show that $f = 0$ $\mu$-a.e. on $X$.
+
+\item
+If $\int_A fd\mu = 0$ for any $A \in \mathcal{M}$, then show that $f = 0$ $\mu$-a.e. on $X$.
+\end{enumerate}
+
+\begin{proof}
+\begin{enumerate}[label=(\roman*)]
+\item For every $\epsilon > 0$, $\mu(f \geq \epsilon) = 0$.
+If not, then $\int_X f d\mu = \int_{f < 0} fd\mu + \int_{f = 0} fd\mu + \int_{0 < f < \epsilon} fd\mu + \int_{f\geq \epsilon} fd\mu
+\geq 0 + 0 + 0 + \int_{f \geq \epsilon} \epsilon d\mu \geq \epsilon \mu(f \geq \epsilon) > 0$.
+Therefore, it contradicts to the fact that $\int_X fd\mu = 0$.
+Now, $\mu(f \neq 0) = \mu(f < 0) + \mu(f > 0) = 0 + \lim_{\epsilon \searrow 0} \mu(f > \epsilon) = 0$.
+
+\item
+Let $A^+ = A \cap \{ x : f(x) > 0\}, A^- = A \cap \{ x : f(x) < 0\}, A^0 = A \cap \{ x : f(x) = 0\}$.
+Apply $A$ on $A^+$ to get $f^+ = 0$ on $A^+$ $\mu$-a.e. and apply $A$ on $A^-$ to get $f^- = 0$ on $A^-$ $\mu$-a.e.
+Therefore, $f = f^+ + f^- = 0$ $\mu$-a.e. on $X$.
+\end{enumerate}
+\end{proof}
+
+\end{enumerate}
+\end{document}
